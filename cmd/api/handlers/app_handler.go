@@ -5,11 +5,13 @@ import (
 	"net/http"
 )
 
-func (h *Handler) healthCheck(c echo.Context) error {
-	healthCheckStruct := struct {
-		health bool
-	}{
-		health: true,
+type healthCheck struct {
+	Health bool `json:"Health"`
+}
+
+func (h *Handler) HealthCheck(c echo.Context) error {
+	healthCheckStruct := healthCheck{
+		Health: true,
 	}
 	return c.JSON(http.StatusOK, healthCheckStruct)
 }

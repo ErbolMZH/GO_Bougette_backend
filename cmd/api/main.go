@@ -2,10 +2,13 @@ package main
 
 import (
 	"bougette-backend/cmd/api/handlers"
+	"bougette-backend/cmd/api/middlewares"
 	"bougette-backend/common"
+
 	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"log"
 	"net/http"
 	"os"
@@ -41,6 +44,10 @@ func main() {
 		server: e,
 		hanler: h,
 	}
+	e.Use(middleware.Logger())
+	e.Use(middlewares.CustomMiddleware)
+	//e.GET("/", h.HealthCheck)
+	app.routes(e, h)
 	application := app
 	fmt.Println(application)
 	port := os.Getenv("APP_PORT")
@@ -48,3 +55,7 @@ func main() {
 	e.Logger.Fatal(e.Start(app_address))
 
 }
+
+//v,_:= time.Now().UTC().MarshalText()v
+//log.PrintF("log.org/%s.json", string(v))
+//os.WriteFile(`log,org/`+string(v)+`json`,0644)
