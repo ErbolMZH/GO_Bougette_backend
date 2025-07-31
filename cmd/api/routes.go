@@ -8,4 +8,5 @@ import (
 func (app *Application) routes(e *echo.Echo, handler handlers.Handler) {
 
 	e.GET("/", handler.HealthCheck)
+	app.server.POST("/reg", handler.RegisterHandlers)
 }

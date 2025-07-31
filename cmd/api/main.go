@@ -23,11 +23,11 @@ type Application struct {
 func main() {
 	e := echo.New()
 	err := godotenv.Load()
-
-	db, err := common.NewMysql()
 	if err != nil {
-		e.Logger.Fatal(err.Error())
+		log.Fatal(err.Error())
 	}
+	db, err := common.NewMysql()
+
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
